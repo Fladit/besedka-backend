@@ -45,6 +45,12 @@ export class User {
   @Column({default: false})
   isConfirmed: boolean;
 
+  @Column({default: false})
+  isBanned: boolean;
+
+  @Column({default: null})
+  banReason: string;
+
   @OneToMany(() => Photo, photo => photo.user)
   photos: Photo[]
 }
