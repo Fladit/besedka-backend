@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Role } from "./role.entity";
-import { MaritalStatus } from "./marital_status.entity";
+import { MaritalStatus } from "./marital-status.entity";
 import { Photo } from "./photo.entity";
 
 @Entity()

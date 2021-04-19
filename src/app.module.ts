@@ -5,7 +5,7 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "./users/entities/user.entity";
 import { Role } from "./users/entities/role.entity";
-import { MaritalStatus } from "./users/entities/marital_status.entity";
+import { MaritalStatus } from "./users/entities/marital-status.entity";
 import { Photo } from "./users/entities/photo.entity";
 
 @Module({
