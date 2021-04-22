@@ -3,7 +3,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UsersService } from "./users.service";
 import { Role } from "./entities/role.entity";
 
-@Controller('users')
+@Controller('api/v1/users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 

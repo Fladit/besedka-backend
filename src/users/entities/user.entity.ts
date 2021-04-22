@@ -10,68 +10,46 @@ export class User {
   id: number;
 
   @ManyToOne(() => Role)
-  role_code: Role;
+  role: Role;
 
   @ManyToOne(() => MaritalStatus)
-  marital_status_code: MaritalStatus;
+  maritalStatus: MaritalStatus;
 
-  @Column({unique: true, nullable: false})
-  @IsString()
-  @MinLength(3)
-  @MaxLength(16)
+  @Column({unique: true, nullable: false, length: 16})
   username: string;
 
   @Column({nullable: false})
-  @IsString()
-  @MinLength(6)
-  @MaxLength(32)
   password: string;
 
-  @Column({nullable: false})
-  @IsEmail()
-  @MaxLength(320)
+  @Column({nullable: false, unique: true, length: 320})
   email: string;
 
-  @Column({nullable: false})
-  @IsString()
-  @MinLength(2)
-  @MaxLength(16)
+  @Column({nullable: false, length: 16})
   firstName: string;
 
-  @Column({nullable: false})
-  @IsString()
-  @MinLength(2)
-  @MaxLength(32)
+  @Column({nullable: false, length: 32})
   lastName: string;
 
   @OneToOne(() => Photo)
   @JoinColumn()
   avatar: Photo;
 
-  @Column()
-  @IsString()
-  @MaxLength(512)
+  @Column({length: 512})
   statusTitle: string;
 
   @Column({type: 'timestamp', nullable: false})
-  @IsDate()
   birthday: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
   registrationDate: Date;
 
   @Column({default: false})
-  @IsBoolean()
   isConfirmed: boolean;
 
   @Column({default: false})
-  @IsBoolean()
   isBanned: boolean;
 
-  @Column()
-  @IsString()
-  @MinLength(8)
-  @MaxLength(128)
+  @Column({length: 128})
   banReason: string;
 
   @OneToMany(() => Photo, photo => photo.user)

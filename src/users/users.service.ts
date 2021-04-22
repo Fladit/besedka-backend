@@ -8,6 +8,7 @@ import { MaritalStatus } from "./entities/marital-status.entity";
 import { Photo } from "./entities/photo.entity";
 import { Roles } from "../../assets/users/roles-enum";
 import { MaritalStatuses } from "../../assets/users/marital-status-enum";
+import { validate } from "class-validator";
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,11 @@ export class UsersService {
     @InjectRepository(Photo) private photoRepository: Repository<Photo>
   ) {}
 
-  async createUser(createUserDto: CreateUserDto): Promise<string> {
+  async createUser(createUserDto: CreateUserDto): Promise<any> {
+    const user = new User()
+    for (const attribute in createUserDto) {
+      user[attribute] = createUserDto[attribute]
+    }
     return `Creation of ${createUserDto.username}`
   }
 
