@@ -7,6 +7,7 @@ import { User } from "./users/entities/user.entity";
 import { Role } from "./users/entities/role.entity";
 import { MaritalStatus } from "./users/entities/marital-status.entity";
 import { Photo } from "./users/entities/photo.entity";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { Photo } from "./users/entities/photo.entity";
       entities: [User, Role, MaritalStatus, Photo],
       synchronize: true,
     }),
-    UsersModule],
+    UsersModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

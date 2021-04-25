@@ -2,7 +2,6 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGene
 import { Role } from "./role.entity";
 import { MaritalStatus } from "./marital-status.entity";
 import { Photo } from "./photo.entity";
-import { IsBoolean, IsDate, IsEmail, IsString, MaxLength, MinLength } from "class-validator";
 
 @Entity()
 export class User {
