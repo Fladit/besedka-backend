@@ -19,12 +19,36 @@ export class UsersService {
     @InjectRepository(Photo) private photoRepository: Repository<Photo>
   ) {}
 
+  async isUserExist(username: string, email: string) {
+    return !! await this.userRepository.findOne({
+      where: [
+        { username },
+        { email },
+      ]
+    })
+  }
+
   async createUser(createUserDto: CreateUserDto): Promise<any> {
-    const user = new User()
-    for (const attribute in createUserDto) {
-      user[attribute] = createUserDto[attribute]
+    if (! await this.isUserExist(createUserDto.username, createUserDto.email)) {
+      const user = new User()
+      for (const attribute in createUserDto) {
+        user[attribute] = createUserDto[attribute]
+      }
+      await this.userRepository.save(user)
+      return {
+        message: "User is successfully created!",
+        data: {
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
+        }
+      }
     }
-    return `Creation of ${createUserDto.username}`
+    return {message: "User is already exist"}
+  }
+
+  async findUserById(id: number) {
+    return this.userRepository.findOne(id)
   }
 
 
