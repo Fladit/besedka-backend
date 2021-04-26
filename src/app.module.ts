@@ -8,6 +8,7 @@ import { Role } from "./users/entities/role.entity";
 import { MaritalStatus } from "./users/entities/marital-status.entity";
 import { Photo } from "./users/entities/photo.entity";
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     UsersModule,
-    AuthModule],
+    AuthModule,
+    ConfigModule.forRoot()],
   controllers: [AppController],
   providers: [AppService],
 })

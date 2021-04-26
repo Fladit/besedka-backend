@@ -22,7 +22,7 @@ export class AuthController {
   }
 
   @Post('/registration')
-  async registration(@Body() createUserDto: CreateUserDto) {
-    return this.authService.createUser(createUserDto)
+  async registration(@Body() createUserDto: CreateUserDto): Promise<LoginOutputUserDto> {
+    return this.authService.registration(createUserDto)
   }
 }
