@@ -37,8 +37,11 @@ export class AuthService {
         user[attribute] = createUserDto[attribute]
       }
       user.password = await this.encryptService.encryptData(createUserDto.password)
-      user.role = await this.roleRepository.findOne(Roles.User)
+      const userRole: Role = await this.roleRepository.findOne(Roles.User)
+      console.log(userRole)
+      user.role = userRole
       user = await this.userRepository.save(user)
+      user.role = userRole
       return this.createJwtTokens(user)
     }
     throw new HttpException({message: "User is already exist"}, 400)
