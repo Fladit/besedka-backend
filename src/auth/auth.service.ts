@@ -41,7 +41,6 @@ export class AuthService {
       console.log(userRole)
       user.role = userRole
       user = await this.userRepository.save(user)
-      user.role = userRole
       return this.createJwtTokens(user)
     }
     throw new HttpException({message: "User is already exist"}, 400)
