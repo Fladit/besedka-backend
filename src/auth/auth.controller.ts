@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { BadRequestException, Body, Controller, HttpException, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -27,5 +27,15 @@ export class AuthController {
   @Post('/registration')
   async registration(@Body() createUserDto: CreateUserDto): Promise<LoginOutputUserDto> {
     return this.authService.registration(createUserDto)
+  }
+
+  @ApiOperation({summary: "Check user existence by username or email"})
+  @Post('/existence')
+  async checkUserExistence(@Body() body) {
+    if (body.hasOwnProperty("username"))
+      return this.authService.isUserExist(body.username, "")
+    else if (body.hasOwnProperty("email"))
+      return this.authService.isUserExist("", body.email)
+    else throw new BadRequestException()
   }
 }
