@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "../users/entities/user.entity";
@@ -9,6 +9,7 @@ import { EncryptService } from "../encrypt/encrypt.service";
 import { JwtService } from "@nestjs/jwt";
 import { Role } from "../users/entities/role.entity";
 import { Roles } from "../../assets/users/roles-enum";
+import {Response} from "express";
 
 enum TokenLifeTime {
   ACCESS_TOKEN = "1h",
@@ -55,10 +56,33 @@ export class AuthService {
     throw new HttpException({message: "Неверный логин или пароль"}, 400)
   }
 
+  authentication(bearer: string, res: Response) {
+    if (bearer) {
+      const token = bearer.split(" ")[1]
+      if (token) {
+        if (this.checkValidationJWT(token)) {
+          return res.status(HttpStatus.OK).send()
+        }
+        throw new HttpException({message: "Token is expired"}, 401)
+      }
+    }
+    throw new HttpException({message: "Unauthorized"}, 401)
+  }
+
   createJwtTokens(user: User): LoginOutputUserDto {
     const {password, photos, ...userInfo} = user
     const accessToken = this.jwtService.sign(userInfo, { expiresIn: TokenLifeTime.ACCESS_TOKEN})
     const refreshToken = this.jwtService.sign(userInfo, { expiresIn: TokenLifeTime.REFRESH_TOKEN})
     return {accessToken, refreshToken}
+  }
+
+  checkValidationJWT(token) {
+    try {
+      this.jwtService.verify(token)
+      return true
+    }
+    catch (e) {
+      return false
+    }
   }
 }

@@ -6,6 +6,7 @@ import { ValidationPipe } from "@nestjs/common";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe())
+  app.enableCors()
   const config = new DocumentBuilder()
     .setTitle("Besedka-Social-Network-API")
     .setDescription("The Besedka API description")
