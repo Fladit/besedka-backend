@@ -39,7 +39,7 @@ export class AuthService {
       }
       user.password = await this.encryptService.encryptData(createUserDto.password)
       const userRole: Role = await this.roleRepository.findOne(Roles.User)
-      console.log(userRole)
+      console.log("Registration of user: ", user)
       user.role = userRole
       user = await this.userRepository.save(user)
       return this.createJwtTokens(user)

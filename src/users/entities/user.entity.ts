@@ -36,7 +36,7 @@ export class User {
   @Column({length: 512, nullable: true})
   statusTitle: string;
 
-  @Column({type: 'timestamp'})
+  @Column({type: 'date'})
   birthDay: Date;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})

@@ -47,7 +47,7 @@ export class CreateUserDto {
   @MaxLength(32)
   lastName: string;
 
-  @ApiProperty({example: "Thu Apr 22 2021 22:45:57 GMT+0300"})
+  @ApiProperty({example: "1900-12-01"})
   @IsDateString()
   birthDay: Date;
 }
